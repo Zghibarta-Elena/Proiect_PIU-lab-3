@@ -18,9 +18,9 @@ namespace ConsoleApp3
                 Console.WriteLine("I. Introducere informatii medicament");
                 Console.WriteLine("A. Afisare medicamente");
                 Console.WriteLine("F. Afisare medicamente din fisier");
+                Console.WriteLine("U. Incarcare medicament in fisier");
                 Console.WriteLine("S. Salvare medicament in fisier");
                 Console.WriteLine("C. Cautare medicament dupa nume");
-                Console.WriteLine("T. Cautare medicament dupa id");
                 Console.WriteLine("R. Cautare medicament dupa cantitate");
                 Console.WriteLine("X. Inchidere program");
                 Console.WriteLine("Alegeti o optiune");
@@ -49,21 +49,17 @@ namespace ConsoleApp3
                         AfisareMedicamente(medicamente, nrMedicamente);
                         break;
                     case "S":
-                        idMedicament = nrMedicamente + 1;
-                        nrMedicamente++;
-                        medicament = new Medicament(idMedicament, "Aspirina", 6);
-                        adminMedicamente.AddMedicament(medicament);
+
+                        farmacie.SalvareMedicamenteInFisier(numeFisier);
                         break;
                     case "C":
                         string Nume_de_cautat = "";
                         Console.WriteLine("Introduceti numele medicamentului: ");
                         Nume_de_cautat = Console.ReadLine();
                         farmacie.Cauta_Medicament_Dupa_Nume(Nume_de_cautat); break;
-                    case "T":
-                        int id_de_cautat=0;
-                        Console.WriteLine("Introduceti id-ul medicamentului: ");
-                        Int32.TryParse(Console.ReadLine(), out id_de_cautat);
-                        farmacie.Cauta_Medicament_Dupa_Id(id_de_cautat); break;
+                    case "U":
+                        farmacie.IncarcareMedicamenteInFisier(numeFisier);
+                        break;
                     case "R":
                         int cantitate_de_cautat = 0;
                         Console.WriteLine("Introduceti cantitatea medicamentului: ");
@@ -101,12 +97,11 @@ namespace ConsoleApp3
             Console.WriteLine("Medicamentele sunt:");
             for(int contor=0; contor<nrMedicament;contor++)
             {
-                string infoMedicament = string.Format("Medicamentul cu id-ul #{0} are numele: {1}{2}",
-                    medicamente[contor].GetIdMedicament(),
-                    medicamente[contor].GetNumeMedicament() ?? "Necunoscut",
-                    medicamente[contor].GetCantitate());
+                string infoMedicament = $"Medicamentul cu id-ul #{medicamente[contor].GetIdMedicament()} are numele: {medicamente[contor].GetNumeMedicament() ?? "Necunoscut"} {medicamente[contor].GetCantitate()}";
+                    
                 Console.WriteLine(infoMedicament);
             }
         }
+        
     }
 }

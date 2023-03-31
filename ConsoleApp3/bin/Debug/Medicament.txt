@@ -1,0 +1,2 @@
+1;paracetamol;5;
+2;Parasinus;6;
